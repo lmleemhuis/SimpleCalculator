@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleCalculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Background="#FFEFEFEF">
+        Title="Simple Calculator" Height="600" Width="800" Background="#FFEFEFEF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -21,30 +21,32 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="Total: " FontSize="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" />
-        <Label Grid.Column="0" Grid.Row="1" Content="Value: " FontSize="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
-        <TextBox Grid.Column="1" Grid.Row ="0" Grid.ColumnSpan="5" x:Name="TextboxTotalDisplay" FontSize="24" TextWrapping="Wrap" />
-        <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" x:Name="TextboxValueDisplay" FontSize="24" TextWrapping="Wrap" />
-        <Button Grid.Column="0" Grid.Row="2" x:Name="ButtonOne" Content="1" FontSize="24" Click="OnPush_ButtonOne"/>
-        <Button Grid.Column="1" Grid.Row="2" x:Name="ButtonTwo" Content="2" FontSize="24" Click="OnPush_ButtonTwo"/>
-        <Button Grid.Column="2" Grid.Row="2" x:Name="ButtonThree" Content="3" FontSize="24" Click="OnPush_ButtonThree"/>
-        <Button Grid.Column="0" Grid.Row="3" x:Name="ButtonFour" Content="4" FontSize="24" Click="OnPush_ButtonFour"/>
-        <Button Grid.Column="1" Grid.Row="3" x:Name="ButtonFive" Content="5" FontSize="24" Click="OnPush_ButtonFive"/>
-        <Button Grid.Column="2" Grid.Row="3" x:Name="ButtonSix" Content="6" FontSize="24" Click="OnPush_ButtonSix"/>
-        <Button Grid.Column="0" Grid.Row="4" x:Name="ButtonSeven" Content="7" FontSize="24" Click="OnPush_ButtonSeven"/>
-        <Button Grid.Column="1" Grid.Row="4" x:Name="ButtonEight" Content="8" FontSize="24" Click="OnPush_ButtonEight"/>
-        <Button Grid.Column="2" Grid.Row="4" x:Name="ButtonNine" Content="9" FontSize="24" Click="OnPush_ButtonNine"/>
-        <Button Grid.Column="0" Grid.Row="5" x:Name="ButtonPlusNegative" Content="+/-" FontSize="24" Click="OnPush_ButtonPlusNegative"/>
-        <Button Grid.Column="1" Grid.Row="5" x:Name="ButtonZero" Content="0" FontSize="24" Click="OnPush_ButtonZero"/>
-        <Button Grid.Column="2" Grid.Row="5" x:Name="ButtonDecimal" Content="." FontSize="24" Click="OnPush_ButtonDecimal"/>
-        <Button Grid.Column="3" Grid.Row="2" x:Name="ButtonPlus" Content="+" FontSize="24" Click="OnPush_ButtonPlus"/>
-        <Button Grid.Column="3" Grid.Row="3" x:Name="ButtonMinus" Content="-" FontSize="24" Click="OnPush_ButtonMinus"/>
-        <Button Grid.Column="3" Grid.Row="4" x:Name="ButtonMultiply" Content="*" FontSize="24" Click="OnPush_ButtonMultiply"/>
-        <Button Grid.Column="3" Grid.Row="5" x:Name="ButtonDivide" Content="/" FontSize="24" Click="OnPush_ButtonDivide"/>
-        <Button Grid.Column="4" Grid.Row="2" x:Name="ButtonClear" Content="Clear All" FontSize="24" Click="OnPush_ButtonClear"/>
-        <Button Grid.Column="4" Grid.Row="3" x:Name="ButtonClearValue" Content="Clear Value" FontSize="24" Click="OnPush_ButtonClearValue"/>
-        <Button Grid.Column="4" Grid.Row="4" x:Name="ButtonPlaceholder1" Content="" FontSize="24" />
-        <Button Grid.Column="4" Grid.Row="5" x:Name="ButtonPlaceholder2" Content="" FontSize="24" />
+        <Label Grid.Column="0" Grid.Row="2" Content="Value: " FontSize="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+        <TextBox Grid.Column="1" Grid.Row ="0" Grid.ColumnSpan="5" x:Name="TextboxTotalDisplay" FontSize="24" TextWrapping="Wrap" IsReadOnly="True" />
+        <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5" x:Name="TextboxValueDisplay" FontSize="24" TextWrapping="Wrap" IsReadOnly="True" />
+        <Label Grid.Column="0" Grid.Row="1" x:Name="LabelOperator" Content=" " FontSize="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" />
+        <Button Grid.Column="0" Grid.Row="3" x:Name="ButtonOne" Content="1" FontSize="24" Click="OnPush_ButtonOne"/>
+        <Button Grid.Column="1" Grid.Row="3" x:Name="ButtonTwo" Content="2" FontSize="24" Click="OnPush_ButtonTwo"/>
+        <Button Grid.Column="2" Grid.Row="3" x:Name="ButtonThree" Content="3" FontSize="24" Click="OnPush_ButtonThree"/>
+        <Button Grid.Column="0" Grid.Row="4" x:Name="ButtonFour" Content="4" FontSize="24" Click="OnPush_ButtonFour"/>
+        <Button Grid.Column="1" Grid.Row="4" x:Name="ButtonFive" Content="5" FontSize="24" Click="OnPush_ButtonFive"/>
+        <Button Grid.Column="2" Grid.Row="4" x:Name="ButtonSix" Content="6" FontSize="24" Click="OnPush_ButtonSix"/>
+        <Button Grid.Column="0" Grid.Row="5" x:Name="ButtonSeven" Content="7" FontSize="24" Click="OnPush_ButtonSeven"/>
+        <Button Grid.Column="1" Grid.Row="5" x:Name="ButtonEight" Content="8" FontSize="24" Click="OnPush_ButtonEight"/>
+        <Button Grid.Column="2" Grid.Row="5" x:Name="ButtonNine" Content="9" FontSize="24" Click="OnPush_ButtonNine"/>
+        <Button Grid.Column="0" Grid.Row="6" x:Name="ButtonPlusNegative" Content="+/-" FontSize="24" Click="OnPush_ButtonPlusNegative"/>
+        <Button Grid.Column="1" Grid.Row="6" x:Name="ButtonZero" Content="0" FontSize="24" Click="OnPush_ButtonZero"/>
+        <Button Grid.Column="2" Grid.Row="6" x:Name="ButtonDecimal" Content="." FontSize="24" Click="OnPush_ButtonDecimal"/>
+        <Button Grid.Column="3" Grid.Row="3" x:Name="ButtonPlus" Content="+" FontSize="24" Click="OnPush_ButtonPlus"/>
+        <Button Grid.Column="3" Grid.Row="4" x:Name="ButtonMinus" Content="-" FontSize="24" Click="OnPush_ButtonMinus"/>
+        <Button Grid.Column="3" Grid.Row="5" x:Name="ButtonMultiply" Content="*" FontSize="24" Click="OnPush_ButtonMultiply"/>
+        <Button Grid.Column="3" Grid.Row="6" x:Name="ButtonDivide" Content="/" FontSize="24" Click="OnPush_ButtonDivide"/>
+        <Button Grid.Column="4" Grid.Row="3" x:Name="ButtonClear" Content="Clear All" FontSize="24" Click="OnPush_ButtonClear"/>
+        <Button Grid.Column="4" Grid.Row="4" x:Name="ButtonClearValue" Content="Clear Value" FontSize="24" Click="OnPush_ButtonClearValue"/>
+        <Button Grid.Column="4" Grid.Row="5" x:Name="ButtonEquals" Content="=" FontSize="24" Click="OnPush_ButtonEquals" />
+        <Button Grid.Column="4" Grid.Row="6" x:Name="ButtonPlaceholder2" Content="" FontSize="24" />
     </Grid>
 </Window>

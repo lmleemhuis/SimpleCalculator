@@ -132,7 +132,7 @@ namespace SimpleCalculator
         private void OnPush_ButtonPlusNegative(object sender, RoutedEventArgs e)
         {
             m_calc.toggleSign();
-            TextboxValueDisplay.Text = m_calc.getDisplayValue();
+            displayData();
         }
 
         /**************************************
@@ -156,9 +156,8 @@ namespace SimpleCalculator
          *************************************/
         private void OnPush_ButtonPlus(object sender, RoutedEventArgs e)
         {
-            double displayTotal = m_calc.add();
-            TextboxTotalDisplay.Text = displayTotal.ToString();
-            TextboxValueDisplay.Text = m_calc.getDisplayValue();
+            displayData(); m_calc.add();
+            displayData();
         }
 
         /**************************************
@@ -166,9 +165,8 @@ namespace SimpleCalculator
          *************************************/
         private void OnPush_ButtonMinus(object sender, RoutedEventArgs e)
         {
-            double displayTotal = m_calc.subtract();
-            TextboxTotalDisplay.Text = displayTotal.ToString();
-            TextboxValueDisplay.Text = m_calc.getDisplayValue();
+            displayData(); m_calc.subtract();
+            displayData();
         }
 
         /**************************************
@@ -176,9 +174,8 @@ namespace SimpleCalculator
          *************************************/
         private void OnPush_ButtonMultiply(object sender, RoutedEventArgs e)
         {
-            double displayTotal = m_calc.multiply();
-            TextboxTotalDisplay.Text = displayTotal.ToString();
-            TextboxValueDisplay.Text = m_calc.getDisplayValue();
+            displayData(); m_calc.multiply();
+            displayData();
         }
 
         /**************************************
@@ -186,9 +183,8 @@ namespace SimpleCalculator
         *************************************/
         private void OnPush_ButtonDivide(object sender, RoutedEventArgs e)
         {
-            double displayTotal = m_calc.divide();
-            TextboxTotalDisplay.Text = displayTotal.ToString();
-            TextboxValueDisplay.Text = m_calc.getDisplayValue();
+            m_calc.divide();
+            displayData();
         }
 
         /**************************************
@@ -196,9 +192,8 @@ namespace SimpleCalculator
         *************************************/
         private void OnPush_ButtonClear(object sender, RoutedEventArgs e)
         {
-            double displayTotal = m_calc.clear();
-            TextboxTotalDisplay.Text = displayTotal.ToString();
-            TextboxValueDisplay.Text = m_calc.getDisplayValue();
+            m_calc.clear();
+            displayData();
         }
 
         /**************************************
@@ -207,7 +202,26 @@ namespace SimpleCalculator
         private void OnPush_ButtonClearValue(object sender, RoutedEventArgs e)
         {
             m_calc.clearValue();
+            displayData();
+        }
+
+        /**************************************
+        * Handler for the equal button
+        *************************************/
+        private void OnPush_ButtonEquals(object sender, RoutedEventArgs e)
+        {
+            m_calc.equals();
+            displayData();
+        }
+
+        /**************************************
+        * Refresh the total, value, and operator on the screen
+        *************************************/
+        private void displayData()
+        {
+            TextboxTotalDisplay.Text = m_calc.getTotal().ToString();
             TextboxValueDisplay.Text = m_calc.getDisplayValue();
+            LabelOperator.Content = m_calc.getSavedOperatorAsString();
         }
     }
 }

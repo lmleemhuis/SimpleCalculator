@@ -10,7 +10,16 @@ namespace SimpleCalculator
         private string m_value; //The number we are adding/multiplying/etc to m_total; 
                                 //will get turned into a double; should be able to accommdate only 1 period in the string
         private Sign m_sign; //Whether or not m_value is currently positive or negative
+        private Operator m_operator;
 
+        public enum Operator
+        {
+            None = 0,
+            Add = 1,
+            Subtract =2,
+            Multiply = 3,
+            Divide = 4,
+        }
         /**************************************
          * Indicates whether or not a number is positive or negative
          *************************************/
@@ -27,6 +36,8 @@ namespace SimpleCalculator
         {
             m_total = 0;
             m_value = "";
+            m_sign = Sign.Plus;
+            m_operator = Operator.None;
         }
 
         /**************************************
@@ -182,16 +193,66 @@ namespace SimpleCalculator
 
             return sign;
         }
+        /**************************************
+         * Perform the operator for total and value based on the operator saved in memory
+         * return: the new total after the operation
+         *************************************/
+        public double performSavedOperation()
+        {
+            switch (m_operator)
+            {
+                case Operator.Add:
+                {
+                    m_total += getDoubleValue();
+                    break;
+                }
+                case Operator.Subtract:
+                {
+                    m_total -= getDoubleValue();
+                    break;
+                }
+                case Operator.Divide:
+                {
+                    m_total /= getDoubleValue();
+                    break;
+                }
+                case Operator.Multiply:
+                {
+                    m_total *= getDoubleValue();
+                    break;
+                }
+                default:
+                {
+                    break;
+                }         
+
+            }
+
+            m_value = "";
+            m_sign = Sign.Plus;
+            m_operator = Operator.None;
+
+            return m_total;
+        }
 
         /**************************************
-         * Multiplies the total number by the value
-         * Returns: The new total after the multiply operation is complete
+         * Saves the multiply operator and performs the previous operation
+         * Returns: The new total after saved operation was performed
          *************************************/
         public double multiply()
         {
             try
             {
-                m_total *= getDoubleValue();
+                if (m_operator == Operator.None)
+                {
+                    initializeTotalValue();
+                }
+                else
+                {
+                    performSavedOperation();  
+                }
+
+                m_operator = Operator.Multiply;
                 m_value = "";
                 m_sign = Sign.Plus;
             }
@@ -205,14 +266,23 @@ namespace SimpleCalculator
         }
 
         /**************************************
-         * Divides the total number by the value
-         * Returns: The new total after the divide operation is complete
+         * Saves the divide operator and performs the previous operation
+         * Returns: The new total after saved operation was performed
          *************************************/
         public double divide()
         {
-            try 
-            { 
-                m_total /= getDoubleValue();
+            try
+            {
+                if (m_operator == Operator.None)
+                {
+                    initializeTotalValue();
+                }
+                else
+                {
+                    performSavedOperation();
+                }
+
+                m_operator = Operator.Divide;
                 m_value = "";
                 m_sign = Sign.Plus;
             }
@@ -226,14 +296,53 @@ namespace SimpleCalculator
         }
 
         /**************************************
-         * Adds the value to the total
-         * Returns: The new total after the add operation is complete
+         * Saves the add operator and performs the previous operation
+         * Returns: The new total after saved operation was performed
          *************************************/
         public double add()
         {
             try
             {
-                m_total += getDoubleValue();
+                if (m_operator == Operator.None)
+                {
+                    initializeTotalValue();
+                }
+                else
+                {
+                    performSavedOperation();
+                }
+
+                m_operator = Operator.Add;
+                m_value = "";
+                m_sign = Sign.Plus;
+            }
+            catch (Exception exc)
+            {
+                //there is no custom text for overflow exceptions, but they should be thrown
+                throw exc;
+            }
+
+            return m_total;
+        }
+
+        /**************************************
+         * Saves the subtract operator and performs the previous operation
+         * Returns: The new total after saved operation was performed
+         *************************************/
+        public double subtract()
+        {
+            try
+            {
+                if (m_operator == Operator.None)
+                {
+                    initializeTotalValue();
+                }
+                else
+                {
+                    performSavedOperation();
+                }
+
+                m_operator = Operator.Subtract;
                 m_value = "";
                 m_sign = Sign.Plus;
             }
@@ -250,13 +359,11 @@ namespace SimpleCalculator
          * Subtracts the value from the total
          * Returns: The new total after the subtract operation is complete
          *************************************/
-        public double subtract()
+        public double equals()
         {
             try
-            { 
-                m_total -= getDoubleValue();
-                m_value = "";
-                m_sign = Sign.Plus;
+            {
+                performSavedOperation();  
             }
             catch (Exception exc)
             {
@@ -265,6 +372,58 @@ namespace SimpleCalculator
             }
 
             return m_total;
+        }
+
+        /**************************************
+         * Used when no operator is saved in memory;
+         * Set the total to the number that was just typed in
+         *************************************/
+        private void initializeTotalValue()
+        {
+            double value = getDoubleValue();
+            if (value != 0)
+            {
+                m_total = value;
+            }
+        }
+
+        /**************************************
+         * Converts the saved operator to a string that can be displayed, logged, etc
+         * Returns: String value of the saved operator
+         *************************************/
+        public string getSavedOperatorAsString()
+        {
+            string ret = "";
+            switch (m_operator)
+            {
+                case Operator.Add:
+                    {
+                        ret = "+";
+                        break;
+                    }
+                case Operator.Subtract:
+                    {
+                        ret = "-";
+                        break;
+                    }
+                case Operator.Divide:
+                    {
+                        ret = "/";
+                        break;
+                    }
+                case Operator.Multiply:
+                    {
+                        ret = "*";
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+
+            }
+        
+            return ret;
         }
 
 
