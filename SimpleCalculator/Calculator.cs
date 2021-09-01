@@ -175,7 +175,7 @@ namespace SimpleCalculator
         private string getSignString()
         {
             string sign = "";
-            if (m_sign == Sign.Minus)
+            if (m_sign == Sign.Minus )
             {
                 sign = "-";
             }
@@ -193,6 +193,7 @@ namespace SimpleCalculator
             {
                 m_total *= getDoubleValue();
                 m_value = "";
+                m_sign = Sign.Plus;
             }
             catch (Exception exc)
             {
@@ -213,6 +214,7 @@ namespace SimpleCalculator
             { 
                 m_total /= getDoubleValue();
                 m_value = "";
+                m_sign = Sign.Plus;
             }
             catch (Exception exc)
             {
@@ -233,6 +235,7 @@ namespace SimpleCalculator
             {
                 m_total += getDoubleValue();
                 m_value = "";
+                m_sign = Sign.Plus;
             }
             catch (Exception exc)
             {
@@ -253,6 +256,7 @@ namespace SimpleCalculator
             { 
                 m_total -= getDoubleValue();
                 m_value = "";
+                m_sign = Sign.Plus;
             }
             catch (Exception exc)
             {
